@@ -158,7 +158,6 @@ void GameLoop()
                 source=Box::Alphanumeric_to_numberstring(source);
                 int source_row=Box::row(source);
                 int source_col=Box::col(source);
-                std::cout<<Completed_moves.size()<<Box::iswhite(source_row,source_col)<<(Completed_moves.size()%2 == !Box::iswhite(source_row,source_col))<<"<+++ \n";
                 if(Completed_moves.size()%2 == !Box::iswhite(source_row,source_col))
                     {
                         cointype(source_row,source_col);
