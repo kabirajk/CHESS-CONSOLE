@@ -1,5 +1,6 @@
-#include <iostream>
+#include <conio.h>
 #include <fstream>
+#include <iostream>
 #include <vector>
 std::vector<std::string> available_moves;
 std::vector<std::string> Completed_available_moves;
@@ -36,9 +37,9 @@ void printv() {
 }
 
 int main() {
- board_initializer();
+  board_initializer();
   print_board();
-   gameloop();
-// cointype(7,0);
+  gameloop();
+  // cointype(7,0);
   return 0;
 }

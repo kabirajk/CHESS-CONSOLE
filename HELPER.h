@@ -44,58 +44,69 @@ int is_move_avilable(string Index) {
   std::cout << "notmatched";
   return 0;
 }
+void change_piece(int row = 1, int col = 1, string replaceable = "___") {
+  printf("\e[%d;%dH", row + 2, ((col + 1) * 4) + 1);
+  cout << replaceable;
+}
+
 void change_coins(int from_row, int from_col, int to_row, int to_col) {
+  std::string s1;
   if (Box::isEnemy(from_row, from_col, to_row, to_col)) {
     Board[to_row][to_col] = Board[from_row][from_col];
     Board[from_row][from_col] = &space;
+    s1 = Board[to_row][to_col]->getPiece();
+    change_piece(to_row, to_col, s1);
+    change_piece(from_row, from_col);
   } else if (Box::isEnemy(from_row, from_col, to_row, to_col) == 2) {
     std::cout << "hey choose a different place";
   } else if (Box::isEnemy(from_row, from_col, to_row, to_col) == 0) {
     Board[to_row][to_col] = Board[from_row][from_col];
     Board[from_row][from_col] = &space;
+    s1 = Board[to_row][to_col]->getPiece();
+    change_piece(to_row, to_col, s1);
+    change_piece(from_row, from_col);
   }
 }
 
 void cointype(int row, int col) {
   string coin = Board[row][col]->getPiece();
+  cout << Board[row][col]->getName();
   if (coin == "W_K") {
     white_king.possibleAvailableMoves(row, col);
-    white_king.getName();
-  }
-
-  else if (coin == "B_K") {
+    // white_king.getName();
+  } else if (coin == "B_K") {
     black_king.possibleAvailableMoves(row, col);
-    black_king.getName();
+    // black_king.getName();
   } else if (coin == "W_Q") {
     white_queen.possibleAvailableMoves(row, col);
-    white_queen.getName();
+    // white_queen.getName();
   } else if (coin == "B_Q") {
     black_queen.possibleAvailableMoves(row, col);
-    black_queen.getName();
+    // black_queen.getName();
   } else if (coin == "W_B") {
     white_bishop.possibleAvailableMoves(row, col);
-    white_bishop.getName();
+    // white_bishop.getName();
   } else if (coin == "B_B") {
     black_bishop.possibleAvailableMoves(row, col);
-    black_bishop.getName();
+    // black_bishop.getName();
   } else if (coin == "W_N") {
     white_knight.possibleAvailableMoves(row, col);
-    white_knight.getName();
+    // white_knight.getName();
   } else if (coin == "B_N") {
     black_knight.possibleAvailableMoves(row, col);
-    black_knight.getName();
+    // black_knight.getName();
   } else if (coin == "W_R") {
     white_rook.possibleAvailableMoves(row, col);
-    white_rook.getName();
+    // white_rook.getName();
   } else if (coin == "B_R") {
     black_rook.possibleAvailableMoves(row, col);
-    black_rook.getName();
+    // black_rook.getName();
   } else if (coin == "W_P") {
     white_pawn.possibleAvailableMoves(row, col);
-    white_pawn.getName();
+    // white_pawn.getName();
   } else if (coin == "B_P") {
     black_pawn.possibleAvailableMoves(row, col);
-    black_pawn.getName();
+    // black_pawn.getName();
   } else {
     std::cout << "invalid input: " << Board[row][col]->getName();
   }
@@ -113,20 +124,31 @@ void print_available_moves() {
   }
   cout << "\n";
 }
+
+void clear_words() {
+  printf("\e[11;1H");
+  printf("\e[0J");
+  printf("\e[11;1H");
+}
+// void printwords(int row=10,int col=1)
+// {
+//   printf("\e[10;1H");
+// }
 void print_board() {
-  string s = "   ";
-  string ss = "  ";
-  std::cout << "      ";
+  printf("\e[1;1H");
+  printf("\e[J");
+  string s = " ";
+  std::cout << "    ";
   for (int i = 0; i < 8; i++) {
-    cout << s + ((char)(97 + i)) + s;
+    cout << s + ((char)(97 + i)) + s << " ";
   }
-  std::cout << "\n\n";
+  std::cout << "\n";
   for (int row = 1; row <= 8; row++) {
-    cout << s + ((char)(48 + row)) + s;
+    cout << s + ((char)(48 + row)) + s << " ";
     for (int col = 0; col < 8; col++) {
-      std::cout << ss + Board[row - 1][col]->getPiece() + ss;
+      std::cout << Board[row - 1][col]->getPiece() << " ";
     }
-    cout << "\n\n";
+    cout << "\n";
   }
   // for(int row=0;row<8;row++)
   //     {
@@ -141,6 +163,7 @@ void print_board() {
 void gameloop() {
   while (1) { // print board firs
     string source;
+    clear_words();
     std::cout << (Completed_available_moves.size() % 2 == 0 ? "White's Turn"
                                                             : "Black's Turn")
               << std::endl;
@@ -159,36 +182,40 @@ void gameloop() {
           !Box::isWhite(source_row, source_col)) {
         cointype(source_row, source_col);
         if (available_moves.size() == 0) {
-          system("cls");
+          // system("cls");
           std::cout << "# The coin is blocked \n";
         } else {
 
           std::cout << "\n";
           print_available_moves();
           string destinaion_string;
-          std::cout << "\nEnter the destinaion of the coin: " << std::endl;
+          std::cout << "\nEnter the destinaion of the coin:\n";
           std::cin >> destinaion_string;
           destinaion_string =
               Box::alphanumericToNumberstring(destinaion_string); // b1to11
           if (is_move_avilable(destinaion_string)) {
             int destrow = Box::row(destinaion_string);
             int destcol = Box::col(destinaion_string);
-            system("cls");
+            clear_words();
             change_coins(source_row, source_col, destrow, destcol);
             pushToCompleted(Box::numericToAlphaNumeric(source_row, source_col) +
                             "->" +
                             Box::numericToAlphaNumeric(destrow, destcol));
-            std::cout << Completed_available_moves.back() << std::endl;
+            // std::cout << Completed_available_moves.back() <<"\n";
           }
           available_moves.clear();
         }
       }
 
       else
+      // clear_words();
+      {
         std::cout << "u picked a wrong coin that is "
                   << (Box::isWhite(source_row, source_col) ? "White" : "Black")
-                  << " Coin." << std::endl;
-      print_board();
+                  << " Coin. !press any key to continue" << std::endl;
+        getch();
+      }
+      // clearwords();
     }
   }
 }
