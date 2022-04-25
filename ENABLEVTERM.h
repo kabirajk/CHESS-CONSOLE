@@ -44,5 +44,5 @@ void setup_console(void) {
 }
 
 #else
-void setupConsole(void) {}
+void setup_console(void) {}
 #endif

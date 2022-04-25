@@ -11,7 +11,7 @@ WhiteRook white_rook;
 BlackRook black_rook;
 WhiteKnight white_knight;
 BlackKnight black_knight;
-WpawnPawn white_pawn;
+WhitePawn white_pawn;
 BlackPawn black_pawn;
 void board_initializer() {
   for (int col = 0; col < 8; col++) {

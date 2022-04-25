@@ -1,4 +1,4 @@
-class WpawnPawn : public Box {
+class WhitePawn : public Box {
   string name = "WHITE_PAWN";
   int color = 1;
   string piece = "W_P";
