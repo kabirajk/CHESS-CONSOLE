@@ -160,6 +160,30 @@ void print_board() {
   //     }
 }
 
+string checkword(string  s)
+{    string rev;
+  try{
+      if(s.length()!=2)
+        throw "row & col only need entered size is";
+      if (s[0] >= 48 && s[0] <= 57) 
+         s=rev+s[1]+s[0];
+      if (!(s[1] >= 49 && s[1] <= 56))
+            throw "number is out of limit";
+      else if (!(s[0] >= 97 && s[0] <= 104))
+            throw "alpha is out of limit";
+  }
+  catch(const char*c)
+   { 
+     cout<<c<<"=>"<<s;
+     cout<<"\nenter the valid input: ";
+     cin>>s;
+     s=checkword(s);
+     if (s[0] >= 48 && s[0] <= 57) 
+         s=rev+s[1]+s[0];
+  }
+  return s;
+}
+
 void gameloop() {
   while (1) { // print board firs
     string source;
@@ -169,6 +193,7 @@ void gameloop() {
               << std::endl;
     std::cout << "Enter the position//command: ";
     std::cin >> source;
+    source=checkword(source);
     if (source == "PRINT")
       print_board();
     if (source == "EXIT") {
@@ -183,7 +208,7 @@ void gameloop() {
         cointype(source_row, source_col);
         if (available_moves.size() == 0) {
           // system("cls");
-          std::cout << "# The coin is blocked \n";
+          std::cout << "\n# The coin is blocked \n";
         } else {
 
           std::cout << "\n";
@@ -191,6 +216,7 @@ void gameloop() {
           string destinaion_string;
           std::cout << "\nEnter the destinaion of the coin:\n";
           std::cin >> destinaion_string;
+          destinaion_string=checkword(destinaion_string);
           destinaion_string =
               Box::alphanumericToNumberstring(destinaion_string); // b1to11
           if (is_move_avilable(destinaion_string)) {
