@@ -31,9 +31,9 @@ class Rook : public virtual Box {
   string piece = "R";
 
 public:
-  virtual int getColor()=0;// { return color; }
-  virtual string getName()=0;// { return name; }
-  virtual string getPiece()=0;// { return piece; }
+  virtual int getColor() = 0;    // { return color; }
+  virtual string getName() = 0;  // { return name; }
+  virtual string getPiece() = 0; // { return piece; }
   virtual void possibleAvailableMoves(int row, int col) {
     horizontal(row, col);
     // cout<<endl;

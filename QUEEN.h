@@ -7,9 +7,9 @@ class Queen : public Rook, public Bishop {
   string piece = "Q";
 
 public:
-  virtual int getColor() =0;//{ return color; }
-  virtual string getName()=0;// { return name; }
-  virtual string getPiece()=0;// { return piece; }
+  virtual int getColor() = 0;    //{ return color; }
+  virtual string getName() = 0;  // { return name; }
+  virtual string getPiece() = 0; // { return piece; }
   void possibleAvailableMoves(int row, int col) {
     horizontal(row, col);
     vertical(row, col);
@@ -27,8 +27,7 @@ public:
   string getName() { return name; }
   string getPiece() { return piece; }
 };
-class BlackQueen : public Queen
-{
+class BlackQueen : public Queen {
   string name = "BLACK_QUEEN";
   int color = 0;
   string piece = "B_Q";
