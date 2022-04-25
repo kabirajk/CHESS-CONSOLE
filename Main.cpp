@@ -1,4 +1,4 @@
-#include <conio.h>
+#include "ENABLEVTERM.h"
 #include <fstream>
 #include <iostream>
 #include <vector>
@@ -37,6 +37,7 @@ void printv() {
 }
 
 int main() {
+  setup_console();
   board_initializer();
   print_board();
   gameloop();
