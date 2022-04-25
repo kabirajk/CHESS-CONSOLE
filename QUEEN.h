@@ -1,15 +1,15 @@
 #include "BISHOP.h"
 #include "ROOK.h"
 
-class WhiteQueen : public virtual WhiteRook, public virtual WhiteBishop {
-  string name = "WHITE_QUEEN";
-  int color = 1;
-  string piece = "W_Q";
+class Queen : public Rook, public Bishop {
+  string name = "QUEEN";
+  int color = 'Q';
+  string piece = "Q";
 
 public:
-  virtual int getColor() { return color; }
-  virtual string getName() { return name; }
-  virtual string getPiece() { return piece; }
+  virtual int getColor() =0;//{ return color; }
+  virtual string getName()=0;// { return name; }
+  virtual string getPiece()=0;// { return piece; }
   void possibleAvailableMoves(int row, int col) {
     horizontal(row, col);
     vertical(row, col);
@@ -17,7 +17,18 @@ public:
     leftdiag(row, col);
   }
 };
-class BlackQueen : public virtual WhiteQueen {
+class WhiteQueen : public Queen {
+  string name = "WHITE_QUEEN";
+  int color = 1;
+  string piece = "W_Q";
+
+public:
+  int getColor() { return color; }
+  string getName() { return name; }
+  string getPiece() { return piece; }
+};
+class BlackQueen : public Queen
+{
   string name = "BLACK_QUEEN";
   int color = 0;
   string piece = "B_Q";

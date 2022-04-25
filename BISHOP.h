@@ -27,7 +27,7 @@ int bottomleft(int r, int c) {
 }
 } // namespace diag
 
-class bishop : public virtual Box {
+class Bishop : public virtual Box {
   string name;
   int color;
   string piece;
@@ -36,7 +36,7 @@ public:
   virtual int getColor() = 0;    // { return color; }
   virtual string getName() = 0;  // { return name; }
   virtual string getPiece() = 0; // { return piece; }
-  void possibleAvailableMoves(int row, int col) {
+  virtual void possibleAvailableMoves(int row, int col) {
     rightdiag(row, col);
     leftdiag(row, col);
   }
@@ -141,7 +141,7 @@ public:
     }
   }
 };
-class WhiteBishop : public bishop {
+class WhiteBishop : public Bishop {
   string name = "WHITE_BISHOP";
   int color = 1;
   string piece = "W_B";
@@ -151,7 +151,7 @@ public:
   string getName() { return name; }
   string getPiece() { return piece; }
 };
-class BlackBishop : public bishop {
+class BlackBishop : public Bishop {
   string name = "BLACK_BISHOP";
   int color = 0;
   string piece = "B_B";

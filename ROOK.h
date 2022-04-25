@@ -25,15 +25,15 @@ int right(int r, int c) {
     return 0;
 }
 } // namespace line
-class WhiteRook : public virtual Box {
-  string name = "WHITE_ROOK";
-  int color = 1; // if white 1
-  string piece = "W_R";
+class Rook : public virtual Box {
+  string name = "ROOK";
+  int color = 'R'; // if white 1
+  string piece = "R";
 
 public:
-  virtual int getColor() { return color; }
-  virtual string getName() { return name; }
-  virtual string getPiece() { return piece; }
+  virtual int getColor()=0;// { return color; }
+  virtual string getName()=0;// { return name; }
+  virtual string getPiece()=0;// { return piece; }
   virtual void possibleAvailableMoves(int row, int col) {
     horizontal(row, col);
     // cout<<endl;
@@ -135,7 +135,17 @@ public:
     }
   }
 };
-class BlackRook : public virtual WhiteRook {
+class WhiteRook : public Rook {
+  string name = "WHITE_ROOK";
+  int color = 1;
+  string piece = "W_R";
+
+public:
+  int getColor() { return color; }
+  string getName() { return name; }
+  string getPiece() { return piece; }
+};
+class BlackRook : public WhiteRook {
   string name = "BLACK_ROOK";
   int color = 0;
   string piece = "B_R";

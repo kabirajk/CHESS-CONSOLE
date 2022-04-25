@@ -1,4 +1,4 @@
-class knight : public Box {
+class Knight : public Box {
   string name;
   int color;
   string piece;
@@ -115,15 +115,15 @@ public:
     return 1;
   }
 };
-class WhiteKnight : public knight {
+class WhiteKnight : public Knight {
   string name = "WHITE_KNIGHT";
   int color = 1;
   string piece = "W_N";
 
 public:
-  virtual int getColor() { return color; }
-  virtual string getName() { return name; }
-  virtual string getPiece() { return piece; }
+  int getColor() { return color; }
+  string getName() { return name; }
+  string getPiece() { return piece; }
 };
 class BlackKnight : public WhiteKnight {
   string name = "BLACK_KNIGHT";
@@ -131,7 +131,7 @@ class BlackKnight : public WhiteKnight {
   string piece = "B_N";
 
 public:
-  virtual int getColor() { return color; }
-  virtual string getName() { return name; }
-  virtual string getPiece() { return piece; }
+  int getColor() { return color; }
+  string getName() { return name; }
+  string getPiece() { return piece; }
 };
