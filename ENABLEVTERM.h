@@ -10,26 +10,26 @@ using namespace std;
 #define ENABLE_VIRTUAL_TERMINAL_PROCESSING 0x00004
 #endif
 
-static HANDLE stdoutHandle, stdinHandle;
-static DWORD outModeInit, inModeInit;
+static HANDLE std_out_handle, std_in_handle;
+static DWORD out_mode_init, in_mode_init;
 
 void setup_console(void) {
   DWORD outMode = 0, inMode = 0;
-  stdoutHandle = GetStdHandle(STD_OUTPUT_HANDLE);
-  stdinHandle = GetStdHandle(STD_INPUT_HANDLE);
+  std_out_handle = GetStdHandle(STD_OUTPUT_HANDLE);
+  std_in_handle = GetStdHandle(STD_INPUT_HANDLE);
 
-  if (stdoutHandle == INVALID_HANDLE_VALUE ||
-      stdinHandle == INVALID_HANDLE_VALUE) {
+  if (std_out_handle == INVALID_HANDLE_VALUE ||
+      std_in_handle == INVALID_HANDLE_VALUE) {
     exit(GetLastError());
   }
 
-  if (!GetConsoleMode(stdoutHandle, &outMode) ||
-      !GetConsoleMode(stdinHandle, &inMode)) {
+  if (!GetConsoleMode(std_out_handle, &outMode) ||
+      !GetConsoleMode(std_in_handle, &inMode)) {
     exit(GetLastError());
   }
 
-  outModeInit = outMode;
-  inModeInit = inMode;
+  out_mode_init = outMode;
+  in_mode_init = inMode;
 
   // Enable ANSI escape codes
   outMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
@@ -37,8 +37,8 @@ void setup_console(void) {
   // Set stdin as no echo and unbuffered//makes input
   // inMode &= ~(ENABLE_ECHO_INPUT | ENABLE_LINE_INPUT);
 
-  if (!SetConsoleMode(stdoutHandle, outMode) ||
-      !SetConsoleMode(stdinHandle, inMode)) {
+  if (!SetConsoleMode(std_out_handle, outMode) ||
+      !SetConsoleMode(std_in_handle, inMode)) {
     exit(GetLastError());
   }
 }
