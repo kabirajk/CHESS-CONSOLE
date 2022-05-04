@@ -193,13 +193,13 @@ void gameloop() {
               << std::endl;
     std::cout << "Enter the position//command: ";
     std::cin >> source;
-    source=checkword(source);
     if (source == "PRINT")
       print_board();
     if (source == "EXIT") {
       on_exit();
       break;
     } else {
+       source=checkword(source);
       source = Box::alphanumericToNumberstring(source);
       int source_row = Box::row(source);
       int source_col = Box::col(source);
